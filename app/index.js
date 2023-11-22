@@ -5,8 +5,8 @@ const dotenv = require ('dotenv')
 dotenv.config();
 
 
-const {errorHandler} = require ('./middlewares/errorhandler.middleware')
-const {notfound} = require ('./middlewares/notfound.middleware')
+const {errorHandler} = require ('./middlewares/errorhandler.middleware');
+const {notfound} = require ('./middlewares/notfound.middleware');
 
 const userRouter = require ('./routes/users.routes')
 
@@ -21,16 +21,6 @@ app.use(urlencodedParser);
 
 //routers
 app.use('/u', userRouter);
-
-// app.get('/u', async function (req, res) {
-//     //res.send('Hello...!');
-//     const pgRes = await pgClient.query('select * from account_users au');
-
-//     res.json({
-//         rows: pgRes.rows,
-//         count: pgRes.rowCount,
-//     });
-// });
 
 /*
 app.post('/save-user', async function (req, res) {
