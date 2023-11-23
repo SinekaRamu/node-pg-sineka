@@ -2,14 +2,16 @@ const express = require('express');
 const router = express.Router();
 
 const {
-    getUsers, 
-    addUserController
+    addUserController,
+    loginController,
 } = require ('../controllers/accountUser.controller');
+const { validate } = require('../middlewares/validate.middleware');
+const { signUpSchema } = require('../validation/authentication.schema');
 
-//GET
-router.get ('/', getUsers)
+//CREATE USER ACCOUNT
+router.post("/signup", validate(signUpSchema), addUserController);
 
-//CREATE
-router.post ('/signup', addUserController);
+//LOGIN
+router.post("/login", loginController);
 
 module.exports = router;
