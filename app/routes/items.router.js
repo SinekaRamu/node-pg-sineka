@@ -19,10 +19,6 @@ const {
   searchController,
 } = require("../controllers/items.controller");
 
-// const {
-//   addfavouritecontroller,
-// } = require("../controller/favourites.controller");
-
 router.post("/add-items", validate(itemaddSchema), additemcontroller);
 router.get("/items", getlistofitemscontroller);
 router.patch(
@@ -30,7 +26,6 @@ router.patch(
   validate(updateitemSchema),
   updateitemcontentcontroller
 );
-// router.post("/favourites", addfavouritecontroller);
 router.get("/items/:itemId", getsingleitemcontroller);
 router.get("/sort/asc-by-price", sortpriceasccontroller);
 router.get("/sort/desc-by-price", sortpricedesccontroller);
