@@ -7,29 +7,29 @@ const {
 } = require("../validation/items.schema");
 
 const {
-  additemcontroller,
-  updateitemcontentcontroller,
-  getsingleitemcontroller,
-  getlistofitemscontroller,
-  sortpriceasccontroller,
-  sortpricedesccontroller,
-  sortitemnameasccontroller,
+  addItemController,
+  updateItemContentController,
+  getSingleItemController,
+  getItemsController,
+  sortPriceAscController,
+  sortPriceDescController,
+  sortItemnameAscController,
   sortItemnameDescController,
   filterPriceController,
   searchController,
 } = require("../controllers/items.controller");
 
-router.post("/add-items", validate(itemaddSchema), additemcontroller);
-router.get("/items", getlistofitemscontroller);
+router.get("/", getItemsController);
+router.post("/add", validate(itemaddSchema), addItemController);
 router.patch(
-  "/update-item-content",
+  "/:itemId",
   validate(updateitemSchema),
-  updateitemcontentcontroller
+  updateItemContentController
 );
-router.get("/items/:itemId", getsingleitemcontroller);
-router.get("/sort/asc-by-price", sortpriceasccontroller);
-router.get("/sort/desc-by-price", sortpricedesccontroller);
-router.get("/sort/asc-by-itemname", sortitemnameasccontroller);
+router.get("/:itemId", getSingleItemController);
+router.get("/sort/asc-by-price", sortPriceAscController);
+router.get("/sort/desc-by-price", sortPriceDescController);
+router.get("/sort/asc-by-itemname", sortItemnameAscController);
 router.get("/sort/desc-by-itemname", sortItemnameDescController);
 router.get("/filter", filterPriceController);
 router.get("/search", searchController);

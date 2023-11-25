@@ -23,8 +23,8 @@ app.use(urlencodedParser);
 
 //routers
 app.use('/u', userRouter);
-app.use("/", itemRouter);
-app.use("/", FavRouter);
+app.use("/items", itemRouter);
+app.use("/u", FavRouter);
 
 app.use(notfound);
 app.use(errorHandler);
