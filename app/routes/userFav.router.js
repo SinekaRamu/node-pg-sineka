@@ -13,18 +13,20 @@ const { buyItemSchema } = require("../validation/purchase.schema");
 const { validate } = require("../middlewares/validate.middleware");
 
 
+//favourites
 router.post("/favourites", addfavouritecontroller);
-router.post("/addRating", validate(ratingValueSchema), addRatingController);
-router.post("/addToCart", validate(addToCartSchema), addToCartController);
-router.post("/buyItem", validate(buyItemSchema), buyItemController);
-router.get("/purchaselist/:user_id", PurchasesListController);
-
-router.put("/cancelOrder", updateStatusController);
-
-+
 router.get("/favourites", getFavController);
 
-// CANCEL::
+//cart items
+router.post("/addToCart", validate(addToCartSchema), addToCartController);
+
+//ratings
+router.post("/addRating", validate(ratingValueSchema), addRatingController);
+
+//purchases
+router.get("/purchaselist/:user_id", PurchasesListController);
+router.post("/buyItem", validate(buyItemSchema), buyItemController);
+router.put("/cancelOrder", updateStatusController);
 router.get("/cancelList", cancelListController);
 
 module.exports = router;
