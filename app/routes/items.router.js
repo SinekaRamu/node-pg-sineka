@@ -28,6 +28,7 @@ router.patch(
   updateItemContentController
 );
 router.get("/:itemId", getSingleItemController);
+
 router.get("/sort/asc-by-price", sortPriceAscController);
 router.get("/sort/desc-by-price", sortPriceDescController);
 router.get("/sort/asc-by-itemname", sortItemnameAscController);
