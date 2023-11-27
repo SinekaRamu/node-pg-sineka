@@ -22,7 +22,7 @@ app.use(jsonParser);
 app.use(urlencodedParser);
 
 //routers
-app.use('/u', userRouter);
+app.use('/', userRouter);
 app.use("/items", itemRouter);
 app.use("/u", FavRouter);
 
