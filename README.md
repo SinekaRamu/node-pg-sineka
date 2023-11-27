@@ -1,23 +1,29 @@
 # node-pg
 
- Authentication - verify it account already exist
- Signup - create new account
- login - verify and open the user_data
- account view - get the user_data
- account update - change the user_date verify before changing.
+- User Account
+	- Authentication, verify it account already exist
+	- Signup, create new account
+	- login, verify and open the user_data account
+	- view, get the user_data account
+	- update, change the user_date verify before changing.
 
- ## schema
+- items
+	- Do items adding to site
+	- Update item contents
+	- Then items list with filters, search, sorting
+	- view single item
+	- add item to cart
 
- ```
- create table account_users (
-	id SERIAL primary key,
-	first_name VARCHAR not null,
-	last_name VARCHAR ,
-	user_name VARCHAR not null unique,
-	email VARCHAR not null,
-	user_password VARCHAR not null,
-	phone_no VARCHAR,
-	createdAt TIMESTAMP default current_timestamp
-) 
- ```
+- Rating
+	- add rating to item (range from 1 to 5)
+	- list overall ratings for single product. then ratings must be average.
 
+- favourites
+	- favourite item
+	- list items which I liked/favourite with filters, search, sorting
+
+- Purchases
+	- buy item
+	- list items which I bought with filters, search, sorting
+	- cancel order
+	- list items which I cancelled with filters, search, sorting
