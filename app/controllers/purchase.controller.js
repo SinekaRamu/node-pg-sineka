@@ -3,11 +3,10 @@ const pgClient = require("../pg-config");
 async function buyItemController(req, res) {
   try {
     const buyQueryText =
-      "INSERT INTO purchases(item_id,user_id,item_price,order_status) VALUES ($1,$2,$3,$4) RETURNING *";
+      "INSERT INTO purchases(item_id,user_id,order_status) VALUES ($1,$2,$3) RETURNING *";
     const buyRes = await pgClient.query(buyQueryText, [
       req.xop.item_id,
       req.xop.user_id,
-      req.xop.item_price,
       req.xop.order_status,
     ]);
     const itemCountQueryText =
@@ -26,7 +25,7 @@ async function buyItemController(req, res) {
   }
 }
 async function PurchasesListController(req, res) {
-  let queryText = `SELECT purchases.*,items.item_name FROM purchases JOIN items ON purchases.item_id = items.item_id WHERE purchases.user_id = $1`;
+  let queryText = `SELECT purchases.*,items.* FROM purchases JOIN items ON purchases.item_id = items.item_id WHERE purchases.user_id = $1`;
   try {
     //search by name
     if (req.query.search) {
@@ -37,7 +36,7 @@ async function PurchasesListController(req, res) {
     if (req.query.sortPrice) {
       //const sortOrder = req.query.sortOrder === "desc" ? "DESC" : "ASC";
       const sortPrice = req.query.sortPrice;
-      queryText += ` ORDER BY purchases.item_price ${sortPrice}`;
+      queryText += ` ORDER BY items.item_price ${sortPrice}`;
      
     }
     //sort by date
@@ -53,7 +52,7 @@ async function PurchasesListController(req, res) {
       const minPrice = parseFloat(priceRanges[0]);
       const maxPrice = parseFloat(priceRanges[1]);
 
-      queryText += ` AND purchases.item_price BETWEEN ${minPrice} AND ${maxPrice}`;
+      queryText += ` AND items.item_price BETWEEN ${minPrice} AND ${maxPrice}`;
     }
 
     const listRes = await pgClient.query(queryText, [req.params.user_id]);
@@ -89,7 +88,7 @@ const cancelListController = async (req, res) => {
       }
   
       let query =
-        "SELECT purcharse.*, items.item_name FROM purcharse JOIN items ON purcharse.item_id = items.item_id WHERE purcharse.order_status = 'Cancelled'";
+        "SELECT purcharse.*, items.* FROM purcharse JOIN items ON purcharse.item_id = items.item_id WHERE purcharse.order_status = 'Cancelled'";
   
       if (req.query.user_id) {
         query += ` AND purcharse.user_id = ${req.query.user_id}`;
@@ -110,7 +109,7 @@ const cancelListController = async (req, res) => {
         const minPrice = parseFloat(priceRanges[0]);
         const maxPrice = parseFloat(priceRanges[1]);
   
-        query += ` AND purcharse.price BETWEEN $1 AND $2`;
+        query += ` AND items.price BETWEEN $1 AND $2`;
   
         const pgRes = await pgClient.query(query, [minPrice, maxPrice]);
         res.json({

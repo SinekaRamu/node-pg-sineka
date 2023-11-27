@@ -35,9 +35,7 @@ create table ratings(
 create table carts(
     cart_id serial not null primary key,
     item_id integer references items(item_id) on delete cascade on update cascade,
-    user_id integer references users(user_id) on delete cascade on update cascade,
-    item_name varchar(255) not NULL,
-    price integer DECIMAL(10, 2) not null,
+    user_id integer references users(user_id) on delete cascade on update cascade
 );
 
 create table purchases(
@@ -46,5 +44,4 @@ create table purchases(
     user_id integer references users(user_id) on delete cascade on update cascade,
     date_of_order date default cast(now() as date),
     order_status varchar(255)
-    item_price DECIMAL(10, 2) NOT null,
 );

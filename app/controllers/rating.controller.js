@@ -3,8 +3,7 @@ const pgClient = require("../pg-config");
 async function addRatingController(req, res) {
   try {
     const queryText =
-      "INSERT INTO ratings(item_id,user_id,rating) VALUES($1,$2,$3) RETURNING item_id,user_id,ratingvalue";
-    console.log(req.body.item_id, req.body.user_id, req.xop.rating);
+      "INSERT INTO ratings(item_id,user_id,rating) VALUES($1,$2,$3) RETURNING *";
     const pgRes = await pgClient.query(queryText, [
       req.body.item_id,
       req.body.user_id,
